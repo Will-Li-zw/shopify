@@ -6,75 +6,83 @@ import java.util.Date;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "InventoryRecord")
+@Table(
+        name = "InventoryRecord",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "inventory_name_unique", columnNames = "name")
+        }
+)
 public class InventoryRecord {
     @Id
     @SequenceGenerator(
-            name = "inventory_sequence",
-            sequenceName = "inventory_sequence",
+            name = "InventoryRecord_sequence",
+            sequenceName = "InventoryRecord_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "inventory_sequence"
+            generator = "InventoryRecord_sequence"
     )
-    private Long id;
+    @Column(
+            name = "inventory_id",
+            updatable = false
+    )
+    private Long inventoryId;
+
     @Column(
             name = "name",
+            nullable = false,
             columnDefinition = "TEXT"
     )
-    private String name;
+    private String inventoryName;
 
     @Column(
-            name = "create_time"
-    )
-    private Date createTime;
-
-    @Column(
-            name = "update_time"
-    )
-    private Date updateTime;
-
-    @Column(
-            name = "desc",
+            name = "description",
             columnDefinition = "TEXT"
     )
     private String desc;
 
     @Column(
-            name = "quantity"
+            name = "creation_date"
     )
-    private Integer quantity;
+    private Date creationDate;
 
-    public InventoryRecord(String name, Date createTime, Date updateTime, String desc, Integer quantity) {
-        this.name = name;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
+
+    @Column(
+            name = "update_date"
+    )
+    private Date updateDate;
+
+    @Column(
+            name = "stock"
+    )
+    private Integer stock;
+
+
+    public InventoryRecord(String inventoryName, String desc, Date creationDate, Date updateDate, Integer stock) {
+        this.inventoryName = inventoryName;
         this.desc = desc;
-        this.quantity = quantity;
+        this.creationDate = creationDate;
+        this.updateDate = updateDate;
+        this.stock = stock;
     }
 
-    public String getName() {
-        return name;
+    public InventoryRecord() {
+
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public InventoryRecord(String inventoryName, String desc, Integer stock) {
+        this.inventoryName = inventoryName;
+        this.desc = desc;
+        this.stock = stock;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public String getInventoryName() {
+        return inventoryName;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setInventoryName(String inventoryName) {
+        this.inventoryName = inventoryName;
     }
 
     public String getDesc() {
@@ -85,23 +93,39 @@ public class InventoryRecord {
         this.desc = desc;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Date getCreationDate() {
+        return creationDate;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
     @Override
     public String toString() {
         return "InventoryRecord{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
+                "inventoryId=" + inventoryId +
+                ", inventoryName='" + inventoryName + '\'' +
                 ", desc='" + desc + '\'' +
-                ", quantity=" + quantity +
+                ", creationDate=" + creationDate +
+                ", updateDate=" + updateDate +
+                ", stock=" + stock +
                 '}';
     }
 }
