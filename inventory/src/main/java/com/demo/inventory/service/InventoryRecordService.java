@@ -1,13 +1,10 @@
 package com.demo.inventory.service;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.demo.inventory.dao.InventoryRecordRepository;
 import com.demo.inventory.model.InventoryRecord;
-import java.util.Date;
-import java.util.ArrayList;
 import java.util.List;
 @Service
 public class InventoryRecordService {
@@ -22,16 +19,13 @@ public class InventoryRecordService {
      */
     @Transactional
     public InventoryRecord createInventory(@NonNull  String name, String desc, @NonNull Integer stock) throws IllegalArgumentException{
-        String error="";
         InventoryRecord inventoryRecord= new InventoryRecord(name, desc, stock);
-        System.out.print("What happend?");
         inventoryRecordRepository.save(inventoryRecord);
         return inventoryRecord;
     }
 
     /**
      * update car with input plate number with the given parameters
-
      * @return inventory
      * @author Zhiwei Li
      * @throws IllegalArgumentException
@@ -39,16 +33,16 @@ public class InventoryRecordService {
     @Transactional
     public InventoryRecord updateInventory(@NonNull Long id, @NonNull  String name, String desc, @NonNull Integer stock) throws IllegalArgumentException{
         InventoryRecord inventoryRecord= inventoryRecordRepository.findInventoryRecordByInventoryId(id);
-        inventoryRecord.setInventoryName(name);
-        inventoryRecord.setDesc(desc);
-        inventoryRecord.setStock(stock);
+        if (name!=null) inventoryRecord.setInventoryName(name);
+        if (desc!=null) inventoryRecord.setDesc(desc);
+        if (stock!=null)inventoryRecord.setStock(stock);
         inventoryRecordRepository.save(inventoryRecord);
         return inventoryRecord;
     }
 
     /**
-     * delete car with input plate number
-     * @param id
+     * delete inventory with its name
+     * @param
      * @return
      * @author Zhiwei Li
      * @throws IllegalArgumentException
@@ -66,8 +60,6 @@ public class InventoryRecordService {
         return "delete succeed";
     }
 
-
-
     /**
      * get list of cars associated with the input customer
      * @param
@@ -83,6 +75,4 @@ public class InventoryRecordService {
     public InventoryRecord getInventoryByName(String name){
         return  inventoryRecordRepository.findInventoryRecordByInventoryName(name);
     }
-
-
 }

@@ -28,10 +28,10 @@ public class InventoryRecordController {
 
     @PutMapping(value = {"/updateInventory", "/updateInventory/"})
     public InventoryRecord updateInventory(
-            @RequestParam("id")  Long id,
-            @RequestParam("name")  String name,
-            @RequestParam("desc") String desc,
-            @RequestParam("stock") Integer  stock
+            @RequestParam(required = false, name = "id")  Long id,
+            @RequestParam(required = false, name = "name")  String name,
+            @RequestParam(required = false, name = "desc") String desc,
+            @RequestParam(required = false, name = "stock") Integer  stock
     ){
         InventoryRecord inventoryRecord = inventoryRecordService.updateInventory(id,name, desc, stock);
         return inventoryRecord;

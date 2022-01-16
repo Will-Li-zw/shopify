@@ -1,10 +1,12 @@
 package com.demo.inventory.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.Date;
-
+import java.util.HashSet;
 import static javax.persistence.GenerationType.SEQUENCE;
-
+import java.util.HashSet;
+import java.util.Set;
 @Entity(name = "InventoryRecord")
 @Table(
         name = "InventoryRecord",
@@ -26,8 +28,13 @@ public class InventoryRecord {
     @Column(
             name = "inventory_id",
             updatable = false
+
     )
     private Long inventoryId;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "groupItems")
+    private Set<InventoryGroup> groups = new HashSet<>();
 
     @Column(
             name = "name",
@@ -43,29 +50,11 @@ public class InventoryRecord {
     private String desc;
 
     @Column(
-            name = "creation_date"
-    )
-    private Date creationDate;
-
-
-    @Column(
-            name = "update_date"
-    )
-    private Date updateDate;
-
-    @Column(
             name = "stock"
     )
     private Integer stock;
 
 
-    public InventoryRecord(String inventoryName, String desc, Date creationDate, Date updateDate, Integer stock) {
-        this.inventoryName = inventoryName;
-        this.desc = desc;
-        this.creationDate = creationDate;
-        this.updateDate = updateDate;
-        this.stock = stock;
-    }
 
     public InventoryRecord() {
 
@@ -93,21 +82,7 @@ public class InventoryRecord {
         this.desc = desc;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
 
     public Integer getStock() {
         return stock;
@@ -117,15 +92,19 @@ public class InventoryRecord {
         this.stock = stock;
     }
 
-    @Override
-    public String toString() {
-        return "InventoryRecord{" +
-                "inventoryId=" + inventoryId +
-                ", inventoryName='" + inventoryName + '\'' +
-                ", desc='" + desc + '\'' +
-                ", creationDate=" + creationDate +
-                ", updateDate=" + updateDate +
-                ", stock=" + stock +
-                '}';
+    public Long getInventoryId() {
+        return inventoryId;
+    }
+
+    public void setInventoryId(Long inventoryId) {
+        this.inventoryId = inventoryId;
+    }
+
+    public Set<InventoryGroup> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<InventoryGroup> groups) {
+        this.groups = groups;
     }
 }
