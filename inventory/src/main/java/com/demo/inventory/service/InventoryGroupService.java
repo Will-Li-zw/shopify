@@ -15,6 +15,11 @@ public class InventoryGroupService {
     @Autowired
     private InventoryRecordRepository inventoryRecordRepository;
 
+    /**
+     * add a new group
+     * @param inventoryGroup
+     * @return
+     */
     @Transactional
     public InventoryGroup addGroup(InventoryGroup inventoryGroup){
         if(inventoryGroup!= null){
@@ -28,6 +33,12 @@ public class InventoryGroupService {
         throw new IllegalStateException("Cannot create a null group");
     }
 
+    /**
+     * add an inventory item to the group
+     * @param groupId
+     * @param itemId
+     * @return
+     */
     @Transactional
     public InventoryGroup addItemToGroup(Long groupId, Long itemId) {
         InventoryGroup inventoryGroup = inventoryGroupRepository.findInventoryGroupByGroupId(groupId);
@@ -38,6 +49,12 @@ public class InventoryGroupService {
         return inventoryGroupRepository.save(inventoryGroup);
     }
 
+    /**
+     * remove an inventory item from the group
+     * @param groupId
+     * @param itemId
+     * @return
+     */
     @Transactional
     public InventoryGroup removeItemFromGroup(Long groupId, Long itemId) {
         InventoryGroup inventoryGroup = inventoryGroupRepository.findInventoryGroupByGroupId(groupId);

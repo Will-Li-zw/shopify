@@ -15,17 +15,23 @@ public class InventoryGroupController {
     }
 
     @PostMapping
-    public InventoryGroup addGroup(@RequestBody InventoryGroup inventoryGroup){
+    public InventoryGroup addGroup(
+            @RequestBody InventoryGroup inventoryGroup
+    ){
         return inventoryGroupService.addGroup(inventoryGroup);
     }
 
     @PutMapping("/addItem/{itemId}/to/{groupId}")
-    public InventoryGroup putItemToGroup(@PathVariable Long groupId, @PathVariable Long itemId){
+    public InventoryGroup putItemToGroup(
+            @PathVariable Long groupId,
+            @PathVariable Long itemId){
         return inventoryGroupService.addItemToGroup(groupId, itemId);
     }
 
     @DeleteMapping("/deleteItem/{itemId}/from/{groupId}")
-    public InventoryGroup removeItemFromGroup(@PathVariable Long groupId, @PathVariable Long itemId){
+    public InventoryGroup removeItemFromGroup(
+            @PathVariable Long groupId,
+            @PathVariable Long itemId){
         return inventoryGroupService.removeItemFromGroup(groupId, itemId);
     }
 }

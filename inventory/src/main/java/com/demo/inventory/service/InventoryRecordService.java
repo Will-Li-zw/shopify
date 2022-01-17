@@ -12,8 +12,8 @@ public class InventoryRecordService {
     private InventoryRecordRepository inventoryRecordRepository;
 
     /**
-     * create Inventory with the input parameters
-     * @return InventoryRecord
+     * create Inventory with the input parameters, cannot create duplicated name items
+     * @return InventoryRecord created
      * @author Zhiwei Li
      * @throws IllegalArgumentException
      */
@@ -25,8 +25,8 @@ public class InventoryRecordService {
     }
 
     /**
-     * update car with input plate number with the given parameters
-     * @return inventory
+     * update car with input plate number with the given parameters, remains the same if not provided
+     * @return inventory updated
      * @author Zhiwei Li
      * @throws IllegalArgumentException
      */
@@ -41,9 +41,9 @@ public class InventoryRecordService {
     }
 
     /**
-     * delete inventory with its name
+     * delete inventory with its name,
      * @param
-     * @return
+     * @return "delete succeed" if successfully deleted
      * @author Zhiwei Li
      * @throws IllegalArgumentException
      */
